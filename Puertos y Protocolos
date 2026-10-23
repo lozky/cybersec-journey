@@ -1,0 +1,35 @@
+21/20 | FTP | Es inseguro | Multiples bulnerabilidaddes
+
+22    | SSH | Es Seguro   | la coneccion entre servidores es cifrada y replaza a TELNET
+
+23    | TELNET | NO Segura | Los datos viajan en texto plano, caulquiera puede acceder a los aquipos
+
+25    | Corros | NO Seguro | Los correos se mandan directo entre servidores
+
+587/465 | Correos cifrados | Seguro | Los correos estan cifrados, se usa Gmail, OutLook, etc
+
+80 | HTTP | NO seguro | los datos no estan nada cifrados, cualquiera puede ver todo los datos que viajan de esta manera
+
+443 | HTTPS | Seguro | Los datos viajan seguros cifrados, es el candaito en el navegador
+
+53 | DNS | No Seguro | Es el que te dice que ip tienen los dominios, pero tiene un trafico raro y puede haber tunel de datos
+
+123 | NTP | No Es seguro | Es el que se encarga de que la hora coincida, porque sino se hace caos 
+
+3306 | MYSQL | Depende | Es el puerto de la base de datos mysql, puede ser inseguro si se configura mal. 
+
+
+DORA 
+
+Discober -- El cliente pide un ip, por DHCP
+Offer -- DHCP le ofrece una
+Request -- El cliente responde que si
+Acknowledge -- DHCP le asigna la ip 
+
+NAT 
+
+Es un protocolo por el cual varios equipos pueden salir a la red con la misma ip publica.
+No es un control de seguridad porque sigue siendo vulnerable a ataques, ademas 
+que para saber que quipo ataco se ncesista ver los logs de NAT.
+
+
