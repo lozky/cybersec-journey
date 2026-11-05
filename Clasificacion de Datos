@@ -1,0 +1,36 @@
+La Clasificaion de los datos es ponerles una etiqueta segun sea su importancia,
+
+Publicos: Puede verlos Cualquiera como el sitio web de una empresa
+Internos: Solo lo puedes ver los empreados
+Privados: Solo los que necesitan verlos, como contratos datos de clientes
+Restringidos: Contrasenas y datos medicos y bancarios
+
+
+Los 3 estados de los datos 
+
+At Rest: El dato esta en reposo esta almacenado en elgun disco duro, para proteger 
+este tipo de datos se encripta el disco.
+
+In Trancit: El dato se encuetra viajando por internet, poara protegerlo se usa un VPN o TSL.
+
+In use: Esta siendo procesado abierto en la memoria, es el estado mas dificil de preteger.
+
+
+FORMAS DE PROTEGER LOS DATOS
+
+Cifrado | EL dato se convierte en algo ilegible para recuperlo se necesita una clave
+
+Enmascaramiento | Se oculta una parte del dato, por ejemplo cuando solo te muestran 
+los ultimos numeros de una atrgeta de credito
+
+Tokenización | Cambia en dato original por un codigo sin valor, mietras el dato vive en otra parte 
+
+Hashing | Conviente un dato en una huella irrevercible, a diferencia del cifrado este no se puede
+recuperar solo se compara, la empresa no gurda la contrsena solo la huella y despues la compara.
+
+
+DLP(Data Lost Prevention)
+
+Ayuda a prevenir que los datos mas delicados salgan de la empresa, como contrsenas, archivos confidenciales etc.
+puede prevenir copias de archivos por usb, por la nuve, etc.
+
