@@ -1,0 +1,85 @@
+# Architecture, parte 1: cómo se organiza una red para que sea difícil de atacar
+
+## 1. Defensa en profundidad
+- Varias capas de protección en vez de una sola (como un castillo: foso, muralla, puertas, guardias).
+- Si el atacante pasa una capa, se topa con otra.
+
+## 2. Segmentación
+- Dividir la red en zonas separadas (invitados, empleados, servidores, cámaras o impresoras).
+- Cada zona se comunica con las demás solo por reglas estrictas.
+- **Para qué sirve:** si un equipo se infecta, el daño se queda en su segmento. Frena el **movimiento lateral**.
+- **Cómo se hace:** VLANs, subredes distintas y firewalls entre segmentos.
+
+## 3. DMZ
+- Zona intermedia (el "lobby") para los servicios que deben ser públicos: servidor web, correo.
+- Si hackean un servidor de la DMZ, el atacante no cae directo en la red interna.
+
+```
+Internet → [Firewall] → DMZ (web, correo) → [Firewall] → Red interna
+```
+
+## 4. Firewalls
+
+| Tipo | Cómo funciona | Nota |
+|---|---|---|
+| **Packet filter (stateless)** | Mira cada paquete por separado (IP, puerto); no recuerda nada | Rápido pero básico |
+| **Stateful** | Recuerda las conversaciones; deja pasar la respuesta a lo que tú pediste | El más común hoy |
+| **NGFW (next-generation)** | Además identifica aplicaciones y busca amenazas | Puede bloquear una app aunque use el puerto 443 |
+| **WAF** | Protege solo aplicaciones web | Frena SQL injection y XSS; no reemplaza al firewall de red |
+
+- Las reglas se leen **en orden**: la primera que coincide es la que se aplica.
+- **Deny all por defecto:** lo que no está permitido explícitamente, se bloquea.
+
+## 5. IDS e IPS
+
+| | IDS | IPS |
+|---|---|---|
+| Qué hace | Detecta y avisa | Detecta y bloquea |
+| Dónde va | "Al lado", recibe una copia del tráfico | **En línea**, todo el tráfico pasa por él |
+| Si falla | La red sigue funcionando | Puede cortar tráfico legítimo |
+
+**Cómo detectan:**
+- **Por firmas:** compara con patrones de ataques conocidos. Preciso, pero no ve ataques nuevos.
+- **Por anomalías:** aprende lo normal y avisa de lo raro. Detecta cosas nuevas, pero da más falsos positivos.
+
+## 6. VPN
+- Túnel privado y cifrado sobre internet.
+- **Remote access:** un empleado se conecta a la red de la empresa desde fuera.
+- **Site-to-site:** conecta dos oficinas como si fueran una sola red.
+- **Full tunnel:** todo el tráfico pasa por la VPN. **Split tunnel:** solo el tráfico de la empresa; lo demás sale directo a internet.
+- Tecnologías comunes: **IPsec** y **SSL/TLS**.
+- Protege el trayecto, no limpia un equipo que ya esté infectado.
+
+## 7. Zero Trust
+- Principio: **nunca confíes, siempre verifica**, incluso dentro de la red.
+- Ideas centrales:
+  1. Verificar siempre: quién eres, desde qué dispositivo y en qué contexto.
+  2. Mínimo privilegio: solo accedes a lo que necesitas.
+  3. Asumir que ya hay un intruso.
+- **Policy engine:** decide si se permite el acceso. **Policy enforcement point:** ejecuta esa decisión en la puerta.
+
+## 8. Resumen
+
+| Concepto | En una frase | Nota |
+|---|---|---|
+| Defensa en profundidad | Varias capas en vez de una sola | Si una falla, otra frena |
+| Segmentación | Dividir la red en zonas | Frena el movimiento lateral |
+| DMZ | Zona intermedia para servicios públicos | Protege la red interna |
+| Firewall stateful | Recuerda conversaciones | El más común |
+| NGFW | Firewall que entiende aplicaciones | Bloquea por app, no solo por puerto |
+| WAF | Firewall para aplicaciones web | Contra SQLi y XSS |
+| IDS | Alarma que avisa | Va al lado; no bloquea |
+| IPS | Alarma y guardia | Va en línea; puede cortar tráfico bueno |
+| VPN | Túnel cifrado | No limpia un equipo infectado |
+| Zero Trust | Nunca confiar, siempre verificar | Mínimo privilegio y verificación constante |
+
+## 9. En mi lab
+- **pfSense:** firewall **stateful** de código abierto. Con paquetes extra (Snort o Suricata, pfBlockerNG) se acerca a un NGFW, pero no lo es de fábrica. No es un WAF.
+- **Snort:** IDS/IPS de código abierto. Compara el tráfico con reglas (firmas).
+  - Modos: sniffer, IDS (detecta y avisa) e IPS (en línea, bloquea).
+  - Por firmas: bueno con ataques conocidos; puede perder uno nuevo (falso negativo). Reglas mal afinadas generan falsos positivos.
+- Mi diagrama del lab: `lab/` (firewall, Snort en modo IDS o IPS, y dónde pondría una DMZ o segmentación extra).
+
+## 10. Preguntas típicas de examen
+- ¿Diferencia entre IDS e IPS? El IDS avisa; el IPS bloquea y va en línea.
+- ¿Para qué sirve una DMZ? Exponer servicios
