@@ -1,0 +1,42 @@
+# Architecture, parte 2: modelos de infraestructura y nube
+
+## 1. Dónde puede vivir la infraestructura
+- **On-premises:** todo en tu propio edificio; tú lo cuidas todo.
+- **Cloud:** infraestructura rentada a un proveedor (Amazon, Microsoft, Google).
+- **Híbrido:** una parte dentro de la empresa y otra en la nube, conectadas.
+
+## 2. Qué tanto te da hecho la nube
+Analogía de la pizza: IaaS = rentar la cocina, PaaS = pizza lista para hornear, SaaS = pizza a domicilio.
+
+| Modelo | Qué te dan | Qué pones tú | Ejemplos | Riesgo principal |
+|---|---|---|---|---|
+| **IaaS** | Hardware y virtualización | Sistema operativo, parches, apps y datos | Amazon EC2, VMs de Azure | Si no actualizas el sistema, la falla es tuya |
+| **PaaS** | Hardware, virtualización, SO y entorno | Tu código y tus datos | Azure App Service, Google App Engine | Vulnerabilidades en tu código y mala configuración |
+| **SaaS** | La aplicación completa | Accesos y datos | Gmail, Microsoft 365 | Contraseñas débiles, sin MFA, permisos excesivos |
+
+Serverless (FaaS): como PaaS llevado más lejos; subes funciones pequeñas y cuidas el código, los permisos y los datos.
+
+## 3. Responsabilidad compartida
+El proveedor cuida el edificio; el cliente cuida lo que mete y quién tiene la llave.
+
+| Capa | On-prem | IaaS | PaaS | SaaS |
+|---|---|---|---|---|
+| Datos y accesos | Cliente | Cliente | Cliente | Cliente |
+| Aplicación | Cliente | Cliente | Cliente | Proveedor |
+| Entorno y SO | Cliente | Cliente | Proveedor | Proveedor |
+| Virtualización | Cliente | Proveedor | Proveedor | Proveedor |
+| Hardware y centro de datos | Cliente | Proveedor | Proveedor | Proveedor |
+
+- **Siempre del cliente:** los datos y la gestión de accesos.
+- Un almacenamiento abierto al público por error es falla de configuración del cliente.
+
+## 4. OT (tecnología operativa)
+- Controla cosas físicas (agua, energía, fábricas). Términos: ICS, SCADA, PLC.
+- Prioridad: que no se detenga y que nadie salga lastimado.
+- Muchos equipos son viejos y no se pueden parchear sin parar la planta.
+- Se protege aislando: segmentación fuerte o air gap.
+
+## 5. Preguntas típicas de examen
+- ¿Qué es siempre del cliente? Datos y gestión de accesos.
+- ¿Quién parchea el SO en IaaS? El cliente. En PaaS y SaaS, el proveedor.
+- ¿Quién tiene la culpa de un bucket público por error? El cliente.
