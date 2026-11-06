@@ -1,0 +1,67 @@
+# Repaso del día: tipos de control y criptografía
+
+Diagnóstico de General Security Concepts. Los temas que reforcé fueron los que fallé en la ronda de práctica.
+
+## 1. Controles de seguridad
+
+Un control tiene una **categoría** (de qué está hecho) y un **tipo** (qué función cumple).
+
+### Categorías
+
+| Categoría | Qué es | Ejemplo |
+|---|---|---|
+| Técnico | Tecnología | Firewall, cifrado, antivirus |
+| Gerencial | Decisiones y políticas | Análisis de riesgos, políticas |
+| Operativo | Lo que hace la gente día a día | Capacitación, procedimientos |
+| Físico | Cosas que se tocan | Puertas, cámaras, cerraduras |
+
+### Tipos
+
+| Tipo | Qué hace | Analogía | Ejemplo |
+|---|---|---|---|
+| **Preventivo** | Evita que pase | Cerradura | Firewall, MFA |
+| **Disuasivo** | Desanima al atacante | Letrero "Cuidado con el perro" | Avisos, cámaras visibles |
+| **Detectivo** | Detecta que algo pasó | Alarma | Logs de auditoría, IDS |
+| **Correctivo** | Arregla después del incidente | Reparar la ventana rota | Restaurar un respaldo |
+| **Compensatorio** | Sustituye a un control que no se puede aplicar | Reja si no puedes poner cerradura | Aislar un equipo que no se puede parchear |
+| **Directivo** | Dice qué se debe hacer | Reglamento | Políticas |
+
+**Clave para escenarios:** si dice "no se puede aplicar X, entonces se hace Y", es **compensatorio**.
+
+## 2. Cifrado simétrico vs asimétrico
+
+| | Simétrico | Asimétrico |
+|---|---|---|
+| Claves | Una sola para cifrar y descifrar | Dos: pública y privada |
+| Analogía | La llave de la casa | Un buzón: cualquiera mete cartas, solo el dueño las abre |
+| Velocidad | **Muy rápido** | Más lento |
+| Ventaja | Ideal para cifrar mucha información | Resuelve el problema de compartir claves |
+| Problema | ¿Cómo comparto la clave de forma segura? | Es lento para volúmenes grandes |
+
+### Cómo trabajan juntos en HTTPS (TLS)
+1. Con **asimétrico** (y el certificado del servidor) se acuerda de forma segura una **clave simétrica de sesión**.
+2. Con esa clave **simétrica** se cifra todo el contenido, porque es más rápido.
+
+## 3. Qué clave uso
+
+| Quiero... | Uso... | El otro usa... |
+|---|---|---|
+| **Cifrar** (que solo el destinatario lea) | La clave **pública del destinatario** | Su clave **privada** para descifrar |
+| **Firmar** (probar que soy yo) | Mi clave **privada** | Mi clave **pública** para verificar |
+
+- La **privada** es mía y nunca se comparte; la **pública** es para todos.
+- La firma digital da **no repudio**: no puedo negar que fui yo.
+- Analogía: sello de cera personal. Solo yo tengo el sello, pero todos saben cómo se ve para verificarlo.
+
+## 4. Hash (recordatorio)
+- Huella irreversible de un dato; no se puede "descifrar".
+- Usos: guardar contraseñas (se compara la huella) y verificar **integridad** (si cambia un byte, cambia toda la huella).
+
+## 5. Resultados de práctica
+- Ronda 1 (puertos, protocolos y Architecture): 10/10.
+- Ronda 2 (General Security Concepts, datos y resiliencia): 7/10.
+- Fallé: tipos de control (compensatorio), ventaja del cifrado simétrico y qué clave firma. Ya reforcé los tres y los respondí bien en el repaso.
+
+## 6. Pendiente de repasar
+- Que quede fija la diferencia entre control **compensatorio** y **correctivo**.
+- Practicar escenarios de "qué clave uso" hasta que salgan sin pensar.
