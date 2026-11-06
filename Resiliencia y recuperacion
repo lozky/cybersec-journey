@@ -1,0 +1,62 @@
+La resilecia es estar preparado para si algo falla se continue trabajando inmediataente o en el menor tiempo posible
+
+Backups
+Es una fotocopia de todos los datos inportantes.
+
+Tipos de Backups
+
+Completo    | Este copia todo solo se respalda una vez pero se copia todo.
+incremnetal | Va respaldando solo los datos nuevos que van generandose de manera incremtal, 
+              no respalda todo solo lo nuevo.
+Diferencial | Es una mescla de los dos anteriores, se respalda de manera incremental pero no
+              solo los datos nuevos sino todo completo cada vez que sale algo nuevo
+
+El completo es mas rapido de restaurar, el incremental es mas rapido que el completo en respaldar
+y el diferencial es mas rapido para restaurar que el incremental.
+
+
+Regla 3, 2, 1
+Para no perderlo todo.
+
+3 respaldos de tus datos
+2 luares diferentes de almacenamiento(un disco duro y la la nuve)
+1 una copia offline en un lugar diferente
+
+
+RPO 
+(Recobery Point Objective) es el punto en el se hace el respaldo por ejemplo si el respaldo se hace cada hora,
+perderas como maximo una hora de datos, ahi el RPO es de 1 hora.
+
+RTO
+(Recobery Time Objective) es el tiempo que puede el sistema estar sin funcionar, si tiene 4 horas para volver
+a estar activo, RTO es de 4 horas.
+
+
+Redundacia 
+Es tener repuestos como una llanta de cambio.
+
+RAID 1 | Copia espejo en 2 discos	Si uno falla, el otro sigue
+RAID 5 | Reparte datos con paridad en 3 o más discos	Tolera la falla de 1 disco
+RAID 6 | Igual, con doble paridad	Tolera la falla de 2 discos
+RAID 10	| Espejo y reparto combinados	Rápido y redundante, pero más caro
+UPS y generador |	Energía de respaldo	El UPS cubre cortes cortos; el generador, largos
+Balanceador de carga | Reparte el tráfico entre varios servidores	Si uno cae, los otros siguen
+Cluster / failover | Si un servidor falla, otro toma su lugar	Con failover, el cambio es automático
+
+Sitios de Recuperacion
+
+Hot site | Lugar con todo listo para seguir trabajando solo llegar y continuar | Tarda de minutos a horas
+Warm Site | Lugar con todos los equipos pero sin configurar | Tarda de horas a dias
+Cols site | Solo es el lugar no hay equipos ni nada | Tarda dias o semanas
+
+
+BIA (Business Impact Analysis)
+Se analiza el impacto y la importancia de los sistemas cuanto dano hacen al caer, aqui se definen los RTO y RPO
+
+BCP (Business Continuity Plan) 
+Plan para que siga funcionando en medio de una crisis 
+
+DRP (Disaster Recovery Plan)
+Como se repupera la tecnolgia despues de un desastre 
+
+
